@@ -1,0 +1,214 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://lms.soap.com"
+           targetNamespace="http://lms.soap.com"
+           elementFormDefault="qualified">
+
+    <xs:element name="LoginRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="password" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="LoginResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userLoginInfos" type="tns:userLoginInfos" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetSearchedBooksRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:choice>
+                    <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="author" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                    <xs:element name="bookId" type="xs:long" minOccurs="0" maxOccurs="1"/>
+                </xs:choice>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetSearchedBooksResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:book" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetUserBorrowingInfosRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="studentId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetUserBorrowingInfosResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingInfo" type="tns:userBorrowingInfos" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddBorrowBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="borrowBook" type="tns:borrowBook" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddBorrowBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="returnVal" type="tns:returnType" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+
+    </xs:element><xs:element name="AddReturnBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="returnBook" type="tns:returnBook" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddReturnBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="returnVal" type="tns:returnType" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="addBook" type="tns:addBook" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="AddBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="loginId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+                <xs:element name="bookId" type="xs:long" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="DeleteBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="returnVal" type="tns:returnType" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="LmsCustomFault" type="tns:lmsCustomFault">
+    </xs:element>
+
+    <xs:simpleType name="returnType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ok" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="userType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="librarian" />
+            <xs:enumeration value="user" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="userLoginInfos">
+        <xs:sequence>
+            <xs:element name="userId" type="xs:long" />
+            <xs:element name="userType" type="tns:userType" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="bookType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="biology" />
+            <xs:enumeration value="physics" />
+            <xs:enumeration value="mathematics" />
+            <xs:enumeration value="social" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="book">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" />
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="author" type="xs:string" />
+            <xs:element name="type" type="tns:bookType" />
+            <xs:element name="location" type="xs:string" />
+            <xs:element name="available" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="userBorrowingInfos">
+        <xs:sequence>
+            <xs:element name="book" type="tns:book" />
+            <xs:element name="borrowingTime" type="xs:date" />
+            <xs:element name="dueDate" type="xs:date" />
+            <xs:element name="returningTime" type="xs:date" />
+            <xs:element name="paid" type="xs:string" />
+            <xs:element name="fine" type="xs:long" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="borrowBook">
+        <xs:sequence>
+            <xs:element name="studentId" type="xs:long" />
+            <xs:element name="bookId" type="xs:long" />
+            <xs:element name="borrowingTime" type="xs:date" />
+            <xs:element name="dueDate" type="xs:date" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="returnBook">
+        <xs:sequence>
+            <xs:element name="studentId" type="xs:long" />
+            <xs:element name="bookId" type="xs:long" />
+            <xs:element name="returningTime" type="xs:date" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="addBook">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string" />
+            <xs:element name="author" type="xs:string" />
+            <xs:element name="type" type="tns:bookType" />
+            <xs:element name="location" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="lmsCustomFault">
+        <xs:sequence>
+            <xs:element name="errCode" type="xs:string"/>
+            <xs:element name="errMessage" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

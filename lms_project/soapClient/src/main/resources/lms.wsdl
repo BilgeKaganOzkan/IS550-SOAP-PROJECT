@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://lms.soap.com"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  name="LMSService"
+                  targetNamespace="http://lms.soap.com">
+    <wsdl:types>
+        <xsd:schema>
+            <xsd:import namespace="http://lms.soap.com" schemaLocation="lms.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="LoginRequest">
+        <wsdl:part name="loginRequest" element="tns:LoginRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="LoginResponse">
+        <wsdl:part name="loginResponse" element="tns:LoginResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetSearchedBooksRequest">
+        <wsdl:part name="bookSearchByNameRequest" element="tns:GetSearchedBooksByNameRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetSearchedBooksResponse">
+        <wsdl:part name="bookSearchByNameResponse" element="tns:GetSearchedBooksByNameResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetUserBorrowingInfosRequest">
+        <wsdl:part name="userBorrowingInfosRequest" element="tns:GetUserBorrowingInfosRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="GetUserBorrowingInfosResponse">
+        <wsdl:part name="userBorrowingInfosResponse" element="tns:GetUserBorrowingInfosResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddBorrowBookRequest">
+        <wsdl:part name="addBorrowBookRequest" element="tns:AddBorrowBookRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddBorrowBookResponse">
+        <wsdl:part name="addBorrowBookResponse" element="tns:AddBorrowBookResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddReturnBookRequest">
+        <wsdl:part name="addReturnBookRequest" element="tns:AddReturnBookRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddReturnBookResponse">
+        <wsdl:part name="addReturnBookResponse" element="tns:AddReturnBookResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddBookRequest">
+        <wsdl:part name="addBookRequest" element="tns:AddBookRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="AddBookResponse">
+        <wsdl:part name="addBookResponse" element="tns:AddBookResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteBookRequest">
+        <wsdl:part name="deleteBookRequest" element="tns:DeleteBookRequest"/>
+    </wsdl:message>
+
+    <wsdl:message name="DeleteBookResponse">
+        <wsdl:part name="deleteBookResponse" element="tns:DeleteBookResponse"/>
+    </wsdl:message>
+
+    <wsdl:message name="LmsCustomFault">
+        <wsdl:part name="lmsCustomFault" element="tns:LmsCustomFault"/>
+    </wsdl:message>
+
+    <wsdl:portType name="bookSearchPortType">
+        <wsdl:operation name="Login">
+            <wsdl:input message="tns:LoginRequest"/>
+            <wsdl:output message="tns:LoginResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetSearchedBooks">
+            <wsdl:input message="tns:GetSearchedBooksRequest"/>
+            <wsdl:output message="tns:GetSearchedBooksResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="GetBorrowingUserInfos">
+            <wsdl:input message="tns:GetUserBorrowingInfosRequest"/>
+            <wsdl:output message="tns:GetUserBorrowingInfosResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddBorrowBook">
+            <wsdl:input message="tns:AddBorrowBookRequest"/>
+            <wsdl:output message="tns:AddBorrowBookResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddReturnBook">
+            <wsdl:input message="tns:AddReturnBookRequest"/>
+            <wsdl:output message="tns:AddReturnBookResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="AddBook">
+            <wsdl:input message="tns:AddBookRequest"/>
+            <wsdl:output message="tns:AddBookResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteBook">
+            <wsdl:input message="tns:DeleteBookRequest"/>
+            <wsdl:output message="tns:DeleteBookResponse"/>
+            <wsdl:fault message="tns:LmsCustomFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="bookSearchSOAP" type="tns:bookSearchPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="Login">
+            <soap:operation soapAction="http://lms.soap.com/Login"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetSearchedBooks">
+            <soap:operation soapAction="http://lms.soap.com/GetSearchBooks"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetBorrowingUserInfos">
+            <soap:operation soapAction="http://lms.soap.com/GetBorrowingUserInfos"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddBorrowBook">
+            <soap:operation soapAction="http://lms.soap.com/AddBorrowBook"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddReturnBook">
+            <soap:operation soapAction="http://lms.soap.com/AddBorrowBook"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AddBook">
+            <soap:operation soapAction="http://lms.soap.com/AddBorrowBook"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteBook">
+            <soap:operation soapAction="http://lms.soap.com/AddBorrowBook"/>
+            <wsdl:input><soap:body use="literal"/> </wsdl:input>
+            <wsdl:output><soap:body use="literal"/> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="LMSService">
+        <wsdl:port name="LMSServiceSOAP" binding="tns:bookSearchSOAP">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>
